@@ -1,0 +1,16 @@
+--style=bsd
+--indent-preproc-define
+--indent-col1-comments
+--max-instatement-indent=40
+--pad-oper
+--pad-header
+--unpad-paren
+--align-pointer=name
+--align-reference=name
+--indent=force-tab
+--convert-tabs
+--lineend=windows
+--mode=c
+--suffix=none
+--close-templates
+--add-brackets

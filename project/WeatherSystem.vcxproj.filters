@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Flownodes">
+      <UniqueIdentifier>{cb6d6fb5-c6b8-4399-8e13-c5ee592c1427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{14edbbdf-57fb-40ee-b4f1-09cef3ecb194}</UniqueIdentifier>
+      <Extensions>bat;astylerc</Extensions>
+    </Filter>
+    <Filter Include="Installer">
+      <UniqueIdentifier>{107dba5e-6cb8-439b-8d98-a1280f950b0e}</UniqueIdentifier>
+      <Extensions>nsi;nsh</Extensions>
+    </Filter>
+    <Filter Include="Source Files\WeatherSystem">
+      <UniqueIdentifier>{a6279c38-a4d2-4b67-b63a-39ef39d1da6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WeatherSystem\FlowNodes">
+      <UniqueIdentifier>{26abdfdd-8126-41e2-b3c7-78671a1e2f45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WeatherSystem\SituationAttributes">
+      <UniqueIdentifier>{57d88032-c205-47d3-98e2-060d5745ae89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SAMPLEFILE">
+      <UniqueIdentifier>{aca4ae62-8609-4ca1-aec5-eaedfa9fa724}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\readme.md" />
+    <None Include="..\changelog.md" />
+    <None Include="..\tools\build.bat">
+      <Filter>Tools</Filter>
+    </None>
+    <None Include="..\tools\codestyle.astylerc">
+      <Filter>Tools</Filter>
+    </None>
+    <None Include="..\tools\stylecode.bat">
+      <Filter>Tools</Filter>
+    </None>
+    <None Include="..\tools\build_installer.bat">
+      <Filter>Installer</Filter>
+    </None>
+    <None Include="..\tools\WeatherSystem_Installer.nsi">
+      <Filter>Installer</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\license.txt" />
+    <Text Include="..\authors.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CPluginWeatherSystemModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CPluginWeatherSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\WeatherSituation.cpp">
+      <Filter>Source Files\WeatherSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\WeatherSystem.cpp">
+      <Filter>Source Files\WeatherSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\AttributeEnums.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\SituationAttributes.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\SituationEntity.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\SituationParticle.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\SituationRain.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\SituationSimpleCloud.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\SituationSnow.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\SituationSound.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\SituationWind.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\TimeOfDayFader.cpp">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\FlowWeatherSysIgnoreSit.cpp">
+      <Filter>Source Files\WeatherSystem\FlowNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\FlowWeatherSysListener.cpp">
+      <Filter>Source Files\WeatherSystem\FlowNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WeatherSystem\FlowWeatherSystem.cpp">
+      <Filter>Source Files\WeatherSystem\FlowNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FlowWSForceSitChange.cpp">
+      <Filter>Source Files\WeatherSystem\FlowNodes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CPluginWeatherSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\IPluginWeatherSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\ISituationListener.h">
+      <Filter>Source Files\WeatherSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\IWeatherSituation.h">
+      <Filter>Source Files\WeatherSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\WeatherSituation.h">
+      <Filter>Source Files\WeatherSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\WeatherSystem.h">
+      <Filter>Source Files\WeatherSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\AttributeEnums.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\SituationAttributes.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\SituationEntity.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\SituationParticle.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\SituationRain.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\SituationSimpleCloud.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\SituationSnow.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\SituationSound.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\SituationWind.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\TimeOfDayFader.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\FlowWeatherSysIgnoreSit.h">
+      <Filter>Source Files\WeatherSystem\FlowNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\FlowWeatherSysListener.h">
+      <Filter>Source Files\WeatherSystem\FlowNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\WeatherSystem\FlowWeatherSystem.h">
+      <Filter>Source Files\WeatherSystem\FlowNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\FlowWSForceSitChange.h">
+      <Filter>Source Files\WeatherSystem\FlowNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SituationFakeSnow.h">
+      <Filter>Source Files\WeatherSystem\SituationAttributes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="version.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Sample\weatherSample.xml">
+      <Filter>SAMPLEFILE</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>
