@@ -118,6 +118,8 @@ bool CWeatherSystem::Init()
 	gEnv->pConsole->AddCommand(WESY_FORCE_SITUATION_CHANGE_CCOMMAND, OnForceSituationChangeCommand, VF_CHEAT, "Forces the system to elect a new situation and spawn it");
 	gEnv->pConsole->AddCommand(WESY_FADE_OUT_AND_STOP_CCOMMAND, OnFadeOutAndStopCommand, VF_CHEAT, "Fades out current situation and stops system, args: fadeouttime");
 	LoadSituationsFromFile("Libs/WeatherSystem/SituationDefinitions/");
+
+	
 	return true;
 }
 
@@ -128,6 +130,7 @@ bool CWeatherSystem::Init()
 */
 bool CWeatherSystem::LoadSituationsFromFile(string sFolderPath)
 {
+	gEnv->pConsole->UnRegisterAutoComplete(WESY_LOAD_SITUATION_CCOMMAND);
 	char correctedPath[ICryPak::g_nMaxPath];
 	string sCorrectedPath = gEnv->pCryPak->AdjustFileName(sFolderPath, correctedPath, ICryPak::EPathResolutionRules::FLAGS_ADD_TRAILING_SLASH);
 	string sSearchPath = sCorrectedPath + "*.xml";
@@ -260,6 +263,8 @@ bool CWeatherSystem::LoadSituationsFromFile(string sFolderPath)
 
 	    file = gEnv->pCryPak->FindNext(file, &findData);
 	}*/
+
+	gEnv->pConsole->RegisterAutoComplete(WESY_LOAD_SITUATION_CCOMMAND, this);
 	return true;
 }
 
@@ -458,6 +463,30 @@ bool CWeatherSystem::TrySetNextSituation(string sName)
 	m_pNextSituation = it->second;
 	return true;
 }
+
+//=============================================================================
+// IConsoleArgumentAutoComplete
+//=============================================================================
+
+int CWeatherSystem::GetCount() const
+{
+	return m_definedSituations.size();
+}
+	// Gets argument value by index, nIndex must be in 0 <= nIndex < GetCount(
+const char* CWeatherSystem::GetValue( int nIndex ) const 
+{
+	int i = 0;
+	for (auto it = m_definedSituations.begin(); it != m_definedSituations.end(); ++it, ++i)
+	{
+		if (i == nIndex)
+		{
+			return it->first;
+		}
+	}
+
+	return "";
+}
+
 //=====================================================
 // PRIVATE
 //=====================================================
@@ -470,9 +499,9 @@ void CWeatherSystem::Update(float fDeltaTime)
 		{
 			m_pCurrentlyActiveSituation->Update(fDeltaTime);
 
-			if (!m_bIsAboutToChangeFired && m_fSituationTimer >= 0.9f * m_fCurrentSituationsTimeLimit)
+			if (!m_bIsAboutToChangeFired && m_fSituationTimer >= m_pCurrentlyActiveSituation->GetFadeOutTimeFactor() * m_fCurrentSituationsTimeLimit)
 			{
-				FireOnSituationAboutToChange(m_fCurrentSituationsTimeLimit / 10);
+				FireOnSituationAboutToChange(m_fCurrentSituationsTimeLimit * (1 - m_pCurrentlyActiveSituation->GetFadeOutTimeFactor()));
 				m_bIsAboutToChangeFired = true;
 			}
 
@@ -631,7 +660,7 @@ IWeatherSituation *CWeatherSystem::GetNextSituation(const std::vector<string> &c
 
 		pCurrentSit->GetTimeSpan(fFrom, fTo);
 
-		if (fCurrentTime >= fFrom && fCurrentTime < fTo)
+		if (fCurrentTime >= fFrom && fCurrentTime < fTo && pCurrentSit->CanBeUsedInCycle())
 		{
 			// if it is nor on the ignored set of situations
 			if (auto it = m_ignoredSituations.find(entry) == m_ignoredSituations.end())

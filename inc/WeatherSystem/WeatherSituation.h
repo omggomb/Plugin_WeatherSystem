@@ -33,15 +33,19 @@ public:
 	{
 		return m_followedBy;
 	}
-	void GetMinMaxDuration(float &fMin, float &fMax) const override
+	virtual void GetMinMaxDuration(float &fMin, float &fMax) const override
 	{
 		fMin = m_fMinDuration;
 		fMax = m_fMaxDuration;
 	}
+	virtual bool CanBeUsedInCycle() const {return m_bIsUsedInCycle;}
+	virtual float GetFadeOutTimeFactor() const {return m_fFadeOutTimeFactor;} 
 
 	// IWeatherSystemListener
 	virtual void OnSituationAboutToChange(float fTimeLeft) override;
 	virtual void OnSituationChanging(string sNextSituation) override;
+
+	
 
 	//=============================================================================
 	// CWeatherSituation
@@ -150,6 +154,8 @@ private:
 	float m_fMinDuration;
 	/** Maximum time this situation may last in sec */
 	float m_fMaxDuration;
+	/** Time after which this situation shall be faded out */ 
+	float m_fFadeOutTimeFactor;
 	/** Array of situations this one may appear after (to prevent illogical weather changes) */
 	std::vector<string> m_followedBy;
 	/** Wind properties for this situation */

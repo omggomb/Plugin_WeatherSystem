@@ -64,6 +64,16 @@ struct IWeatherSituation : public IWeatherSystemListener
 
 	virtual void GetMinMaxDuration(float &fMin, float &fMax) const = 0;
 
+	/**
+	* May this situation be used in the weather system cycle  */
+	virtual bool CanBeUsedInCycle() const = 0;
+
+	/**
+	* Gets the factor for the situation's time after which it should be faded out 
+	* If the situation lasts 100 secs, and the fadeOutTimeFactor is 0.9,
+	* the situation starts to fade out after 90 secs*/
+	virtual float GetFadeOutTimeFactor() const = 0;
+
 
 
 };

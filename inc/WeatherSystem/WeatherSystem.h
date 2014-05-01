@@ -59,7 +59,7 @@ void OnSystemActiveCVarChanged(ICVar *pCVar);
 
 
 
-class CWeatherSystem : public IGameFrameworkListener, ISystemEventListener
+class CWeatherSystem : public IGameFrameworkListener, public ISystemEventListener, public IConsoleArgumentAutoComplete
 {
 public:
 
@@ -75,6 +75,10 @@ public:
 
 	// ISystemEventListener
 	virtual void OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam) override;
+
+	// IConsoleArgAutoComplete
+	virtual int GetCount() const;
+	virtual const char* GetValue( int nIndex ) const;
 
 	// CWeatherSystem
 

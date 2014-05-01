@@ -26,74 +26,48 @@ EPositioningMode GetPositioningModeFromString(const char *sString)
 
 void SetTableMemeberChain(IScriptTable *table, const string sMember, const ScriptAnyValue &val)
 {
-	size_t dotPos = sMember.find_first_of('.');
-	size_t lastDot = 0;
-
+	string sCurrent, sNext;
+	int nPos = 0;
 	std::list<string> tables;
-	while (dotPos != string::npos)
+
+	sCurrent = sMember.Tokenize(".", nPos);
+
+	while (!sCurrent.empty())
 	{
-		tables.push_back(sMember.substr(lastDot, dotPos - lastDot));
-
-
-		lastDot = dotPos + 1;
-
-		if (!(lastDot < sMember.size()))
-		{
-			break;
-		}
-
-		dotPos = sMember.find_first_of('.', lastDot);
+		tables.push_back(sCurrent);
+		
+		sCurrent = sMember.Tokenize(".", nPos);
 	}
 
-	lastDot = sMember.find_last_of('.');
+	string sAttribute = (*(--tables.end()));
+	tables.pop_back();
 
-	string sTableMember;
-	if (lastDot == string::npos)
-	{
-		sTableMember = sMember;
-	}
-	else
-	{
-		++lastDot;
-		if (lastDot < sMember.size())
-		{
-			sTableMember = sMember.substr(lastDot, sMember.size() - lastDot);
-		}
-		else
-		{
-			sTableMember = "";
-		}
-	}
+	SmartScriptTable currentTable;
 
 	if (tables.size() > 0)
 	{
 		SmartScriptTable firstTable;
 		table->GetValue((*tables.begin()), firstTable);
+		tables.pop_front();
 
 		if (tables.size() > 1)
 		{
-			SmartScriptTable nextTable = firstTable;
-
-			auto iter = tables.begin();
-			++iter;
-
-			while (iter != tables.end())
+			currentTable = firstTable;
+			for (auto it = tables.begin(); it != tables.end(); ++it)
 			{
-				nextTable->GetValue((*iter), nextTable);
-
-				++iter;
+				currentTable->GetValue((*it), currentTable);
 			}
 
-			nextTable->SetValue(sTableMember, val);
+			currentTable->SetValue(sAttribute, val);
 		}
 		else
 		{
-			firstTable->SetValue(sTableMember, val);
+			firstTable->SetValue(sAttribute, val);
 		}
 	}
 	else
 	{
-		table->SetValue(sTableMember, val);
+		table->SetValue(sAttribute, val);
 	}
 }
 

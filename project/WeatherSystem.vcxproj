@@ -85,9 +85,6 @@
   <ItemGroup>
     <ResourceCompile Include="version.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\Sample\weatherSample.xml" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{91EA24A8-D09C-45CC-91C8-7750D290CDE4}</ProjectGuid>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -288,6 +285,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

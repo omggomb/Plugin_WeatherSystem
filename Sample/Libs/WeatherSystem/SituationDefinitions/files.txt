@@ -1,0 +1,3 @@
+weatherSample.xml
+weatherSunny.xml
+weatherRainy.xml

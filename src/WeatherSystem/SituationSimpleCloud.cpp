@@ -19,6 +19,7 @@ bool SSituationSimpleCloud::LoadFromXml(XmlNodeRef root)
 	XMLGET(root, "maxDistance", x_fMaxDistance, modName);
 	XMLGET(root, "randomScaleFactor", x_fScaleFactor, modName);
 	XMLGET(root, "height", x_fHeight, modName);
+	XMLGET(root, "fadeInTime", x_fFadeInTime, modName);
 
 	if (!moveRoot)
 	{
@@ -72,6 +73,12 @@ void SSituationSimpleCloud::SpawnCloud()
 			{
 				WEATHERSYSTEM_WARNING("Couldn't find material %s for cloud %s", x_sMaterialFile, x_sCloudFile);
 			}
+
+			IEntityRenderProxy *pProxy = (IEntityRenderProxy*)pCloudEnt->GetProxy(EEntityProxy::ENTITY_PROXY_RENDER);
+
+			m_fTargetOpacity = pProxy->GetOpacity();
+			pProxy->SetOpacity(0.f);
+
 
 			SmartScriptTable props;
 			SmartScriptTable move;
@@ -157,44 +164,26 @@ void SSituationSimpleCloud::OnSituationAboutToChange(float fTimeLeft)
 
 Vec3 SSituationSimpleCloud::GetRandomCloudPos(Vec3 vLastPos)
 {
-	Vec3 windDirection = gEnv->p3DEngine->GetGlobalWind(false);
-	windDirection.NormalizeFast();
-
-	windDirection *= -1; // flip it to the opposite
-
-	Vec3 playerPos = gEnv->pGame->GetIGameFramework()->GetClientActor()->GetEntity()->GetPos();
-
-
-
-	// add height
-	playerPos += Vec3(0, 0, x_fHeight);
-	// go opposite of wind fDistanceToPlayer times
-	playerPos += windDirection * x_fDistanceToPlayer;
-
-	if (!vLastPos.IsZero())
+	if (vLastPos.IsZero())
 	{
-		playerPos = vLastPos;
+		Vec3 vPlayerPos = gEnv->pGame->GetIGameFramework()->GetClientActor()->GetEntity()->GetPos();
+
+		Vec3 vDir;
+		vDir.SetRandomDirection();
+		vDir.z = 0;
+		vDir.Normalize();
+
+		vPlayerPos.z += x_fHeight;
+
+		return vPlayerPos + vDir * cry_frand() * x_fDistanceToPlayer;
 	}
-
-	//now playerPos is base pos for cloud
-	// add randomness
-	Vec3 randomInfluence;
-	randomInfluence.SetRandomDirection();
-	randomInfluence.z = 0;      // no height randomness
-	randomInfluence.NormalizeFast();
-
-	float fDir = -1 + 2 * cry_frand();
-	int dir = 1;
-
-	if (fDir < 0)
+	else
 	{
-		dir = -1;
+		Vec3 vDir;
+		vDir.SetRandomDirection();
+		vDir.z = 0;
+		vDir.Normalize();
+
+		return vLastPos + vDir * Random(x_fMinDistance, x_fMaxDistance);
 	}
-
-
-	float fFactor = Random(x_fMinDistance, x_fMaxDistance);
-
-	playerPos += randomInfluence * (fFactor * fDir);
-
-	return playerPos;
 }

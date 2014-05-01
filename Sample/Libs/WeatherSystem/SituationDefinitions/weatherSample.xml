@@ -1,0 +1,154 @@
+<!-- 
+NOTE: In order for fading to work properly, every node that can be faded must be present. Tod vars, clouds, sounds, entities, particles are faded before situation ends,
+rain and snow are faded over to the new situation's values
+
+position attribute can also be filled with the name of an existing entity in the level
+beware: if you want an entity's position the level must be loaded beforehand, meaning you need to reload the definitions after level load
+also, the pos is not adjusted if the entity moves
+
+name 				: The name of the defined weather situation, with which it can be referenced throughout the game code and fgs
+isUsedInCycle 		: Can this situation occur dynamically or is it activated by gamecode or fg only?
+timeFrom - timeTo 	: Situation can only occur during this period of the day (using "any" in one of them will result in no restrictions)
+occursAfter 		: Comma separated names of other situations after which this situation may occur, use "all" to specify all 
+minDuration			: Minimum duration this situation will last
+maxDuration			: Maximum time this situation can last in realworld seconds
+fadeOutTimeFactor 	: Time factor after which this situation shall be faded out (starts at actualDuration * fadeOutTimeFactor)
+					e.g: situation lasts 100 secs, fadeOutTimeFactor is set to 0.9, situation starts fading out after 90 secs -->
+<WeatherSituation name="Sample" isUsedInCycle="1" timeFrom="00:30" timeTo="15:36" followedBy="Sunny, Rainy" minDuration="40" maxDuration="80" fadeOutTimeFactor="0.9">
+	<!-- 
+	Wind is optional, don't create this node if you do not wish to alter the global wind
+	Keep in mind that CRYENGINE itself does some sort of fade in already, so use fadeInTime with caution
+	
+	directionAndSpeed 		: The direction of the global wind for this situation, the larger the numbers the faster the wind in that direction
+	fadeInTime 				: Time until wind reaches full speed
+    maxLowerFluctuation 	: the maximum speed decrement for random breezes below defined speed in any defined direction
+    maxxHigherFluctuation 	: the maximum speed increment for random breezes above defined speed in any defined direction
+	minFluctuationTime 		: Minimum duration for a turbulence in seconds 
+	maxFluctuationTime		: Maximum -"- -->
+	<Wind directionAndSpeed="1,0,0" fadeInTime="1"  maxLowerFluctuation="0" maxHigherFluctuation="0" minFluctuationTime="1" maxFluctuationTime="1" />
+	<!-- Multiple particles can be defined to spawn at specific times and position or be spawned randomly -->
+	<Particles>
+		<!-- 
+		NOTE that each time the particle is spawned the old particle emitter is destroyed!
+		path 			: path to the particle effect;
+        spawnAfterSecs 	: spawn this particle after the current weather has been active for so much seconds, -1 means random
+        spawnOnce 		: only spawn this particle once during the weather situation
+		scaleFactor 	: Effect is scaled by this factor
+        position 		: position for the particle to be spawned
+		direction		: Direction of the particle emitter
+		positioningMode	: Determines how position is interpreted (World, Local, AroundPlayer, AroundWorld)
+						  World			: Position is interpreted as absolute world coordinate
+						  Local			: Position is interpreted as local position around player
+						  AroundPlayer 	: Position is ignored, particle spawned within radius randomly around player
+						  AroundWorld 	: Position is ignored, radius is ignored, particle spawned randomly in world
+		radius			: used with positioningMode set to "AroundPlayer"
+		minSpawnDelay	: Minimum time before a new emitter is spawned
+		maxSpawnDelay	: Maximum -"-
+		minHeight		: Minimum height relative to player position for the particle
+		maxHeight		: Maximum -"-
+		-->
+		<Particle path="Weather.Lightning.MyLightning" spawnAfterSecs="-1" spawnOnce="0" scaleFactor="2" position="0,9,8" direction="1,0,0" positioningMode="AroundPlayer"
+					radius="5" minSpawnDelay="0" maxSpawnDelay="1" minHeight="60" maxHeight="100" />
+		<Particle path="Weather.Lightning.MyLightning" spawnAfterSecs="-1" spawnOnce="0" scaleFactor="2" position="0,9,8" direction="1,0,0" positioningMode="AroundPlayer"
+					radius="5" minSpawnDelay="0" maxSpawnDelay="1" minHeight="50" maxHeight="100" />			
+    </Particles>
+	
+	<Sounds>
+		<!-- 
+		path 			: path to the sound effect
+        spawnAfterSecs 	: spawn this sound after the current weather has been active for so much seconds, -1 means random
+        spawnOnce 		: only spawn this sound once during the weather situation
+        position 		: specific world position, or if keepAroundPlayer is true, local position around player. 
+		positioningMode	: Determines how position is interpreted (World, Local, AroundPlayer, AroundWorld)
+						  World			: Position is interpreted as absolute world coordinate
+						  Local			: Position is interpreted as local position around player
+						  AroundPlayer 	: Position is ignored, sound spawned within radius randomly around player
+						  AroundWorld 	: Position is ignored, radius is ignored, sound spawned randomly in world
+		radius			: used with position set to "AroundPlayer"		  
+		volume 			: volume of the sound to be played, -1 for random volume (will not be 0)
+		fadeInTime		: Time until the sound reaches its full volume (measured when sound is spawned (starts playing)) 
+		loop			: Should this sound be looped (only usabel with spawnonce )
+		minSpawnDelay	: Minimum time after sound has stopped playing until it can start playing again (if spawnonce == false 
+		maxSpawnDelay	: Maximum -"-  -->
+		<Sound path="sounds/environment:forest:hilltop_ambience" spawnAfterSecs="2" spawnOnce="0" position="8,7,5" positioningMode="AroundPlayer" radius="1"
+			volume="1.0" fadeInTime="10" loop="1" minSpawnDelay="0" maxSpawnDelay="1"/>
+		<Sound path="sounds/environment:city:thunder_distant" spawnAfterSecs="5" spawnOnce="0" position="8,7,5" positioningMode="AroundPlayer" radius="5" 
+			volume="1.0" fadeInTime="0" loop="0" minSpawnDelay="1" maxSpawnDelay="5"/>	
+	</Sounds>
+	<Entities>
+		<!--
+		class			: Name of the entity class to be spawned
+		position		: Position of the entity
+		direction		: Direction of the entity
+		scaleFactor		: Scale factor
+		positioningMode	: Determines how position is interpreted (World, Local, AroundPlayer, AroundWorld)
+						  World			: Position is interpreted as absolute world coordinate
+						  Local			: Position is interpreted as local position around player
+						  AroundPlayer 	: Position is ignored, entity spawned within radius randomly around player
+						  AroundWorld 	: Position is ignored, radius is ignored, entity spawned randomly in world
+		spawnOnce		: Only spawn this entity once per situation
+		spawnAfterSecs	: Spawn entity after this many seconds have passed since situation began
+		removeAfterSecs	: Remove this entity after this much seconds have passed since it was spawned
+		minSpawnDelay	: Minimum delay after which entity is randomly repositioned
+		maxSpawnDelay	: Maximum -"-
+		radius			: Radius around player in which entity is spawned
+		minHeight		: Minimum height relative to player height at which the entity is spawned
+		maxHeight		: Maximum -"- -->
+		<Entity class="BasicEntity" position="0,3,4" direction="1,2,3" scaleFactor="1" positioningMode="AroundPlayer" spawnOnce="0" spawnAfterSecs="5" removeAfterSecs="1000"
+				minSpawnDelay="1" maxSpawnDelay="1" radius="20" minHeight="1" maxHeight="1">
+			<!--
+			Refer to the entity's script for params. Always specify the complete chain for the param. name="param.in.sub.table"
+			type		: One of the following [bool, number, string, vector]-->
+			<Params>
+				<Param name="Properties.object_Model" value="objects/default/teapot.cgf" type="string" />
+			</Params>
+		</Entity>
+	</Entities>
+	
+	<TimeOfDay>
+		<!-- 
+		id 				: Id of the value to be changed (either number or human readable name)
+		fadeInTime 		: time to fade from old to this value
+		value0 to value2	: values (if type is "Float", use value0, rest is ignored
+		type				: type of the value (either "Float" or "Color" -->
+		<Var id="Global density" fadeInTime="10" value0="3" value1="0" value2="0" type="Float" />
+		<Var id="Star intensity" fadeInTime="1" value0="100" type="Float"/>
+	</TimeOfDay>
+	<!--
+	NOTE: Both rain and snow should be defined, so weather system can fade previous situation's setting correctly.
+	DO NOT over do the amount values of rain and snow -->
+	<Sky>
+		<Clouds>
+			<!--
+			Simple cloud equals Enttiy->Render->Cloud
+			cloudFile		: Lib path to the xml cloud file
+			material		: Lib path to the material
+			distanceToPlayer: Distance from the player at which the cloud is spawned, in opposite of current wind direction
+			minCount		: Minimum number of clouds spawned during one situation
+			maxCount		: Maximum clouds spawned during one situation
+			minDistance		: Minimum distance between multiple clouds
+			maxDistance 	: Maximum distance between two clouds 
+			randomScale 	: scale between zero and this
+			height			: Height at which the clouds are spawned -->	
+			<SimpleCloud cloudFile="Libs/Clouds/Default.xml"  material="Libs/Materials/Clouds/baseclouds.mtl" distanceToPlayer="100" fadeInTime="1"
+				minCount="0" maxCount="0" minDistance="20" maxDistance="100" randomScaleFactor="50" height="100">
+				<!-- Refer to CE docs for these params -->
+				<MovementParameters autoMove="1" fadeDistance="0" spaceLoopBox="2000,2000,2000" speed="1,0,0"/>
+			</SimpleCloud>
+		</Clouds>
+		
+		<Rain positioningMode="AroundPlayer" position="300,500,70" amount="0" color="0.125,0.125,0.125" fadeInTime="20" 
+				fakeGlossiness="3" puddlesAmount="10" radius="50" dropSpeed="1" reflectionAmount="0.2" umbrellaRadius="0"/>
+		
+		<!-- 
+		positioningMode 		: Determines whether center is interpreted as Local or global absolute value. "AroundPlayer" keeps the center of the snow effect at the player's position -->
+		<Snow fadeInTime="30" positioningMode="AroundPlayer">
+			
+			<Surface center="0,0,0" radius="100" snowAmount="10" frostAmount="1" surfaceFreezing="1" />
+			<SnowFall snowFlakeCount="100" snowFlakeSize="5" snowFallBrightness="1" snowFallGravity="1" snowFallGravityScale="0.1"
+						snowFallWindScale="0.1" snowFallTurbulence="0.5" snowFallTurbulenceFreq="0.1" />
+		</Snow>
+	</Sky>
+	
+	
+</WeatherSituation>               

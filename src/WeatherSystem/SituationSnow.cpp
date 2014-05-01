@@ -103,6 +103,8 @@ void SSituationSnow::Update(float fFrameTime)
 {
 	float fFlakeSize = snowFallParams.fSnowFlakeSize;
 	float fSnowAmount = surfaceParams.fSnowAmount;
+	float fFrostAmount = surfaceParams.fFrostAmount;
+	float fSurfaceFreezing = surfaceParams.fSurfaceFreezing;
 
 	if (fFadeProgression < fFadeInTime)
 	{
@@ -119,6 +121,13 @@ void SSituationSnow::Update(float fFrameTime)
 												surfaceParams.fSnowAmount,
 												currentPercentage);
 
+		fFrostAmount = LERP(oldSnowParams.surfaceParams.fFrostAmount,
+												surfaceParams.fFrostAmount,
+												currentPercentage);
+
+		fSurfaceFreezing = LERP(oldSnowParams.surfaceParams.fSurfaceFreezing,
+												surfaceParams.fSurfaceFreezing,
+												currentPercentage);
 
 		fFadeProgression += fFrameTime;
 	}
@@ -148,7 +157,7 @@ void SSituationSnow::Update(float fFrameTime)
 
 	gEnv->p3DEngine->SetSnowSurfaceParams(vNewCenter, surfaceParams.fRadius,
 											fSnowAmount,
-											surfaceParams.fFrostAmount, surfaceParams.fSurfaceFreezing);
+											fFrostAmount, fSurfaceFreezing);
 }
 
 void SSituationSnow::Reset()

@@ -84,6 +84,9 @@ bool CWeatherSituation::LoadFromXml(XmlNodeRef root)
 	XMLGET(root, "minDuration", m_fMinDuration, modName);
 	XMLGET(root, "maxDuration", m_fMaxDuration, modName);
 
+	XMLGET(root, "fadeOutTimeFactor", m_fFadeOutTimeFactor, modName);
+	CLAMP(m_fFadeOutTimeFactor, 0.f, 0.99f);
+
 	// wind attributes;
 	m_windStats.LoadFromXml(root->findChild("Wind"));
 

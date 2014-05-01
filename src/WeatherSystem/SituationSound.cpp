@@ -80,6 +80,8 @@ void SSituationSound::Update(float fFrameTime)
 			m_pEntity->SetPos(gEnv->pGame->GetIGameFramework()->GetClientActor()->GetEntity()->GetPos() + finalPos);
 			tSoundID id = m_pSoundProxy->PlaySound(x_sPath, finalPos, Vec3(0, 1, 0), m_nSoundFlags, 0, ESoundSemantic::eSoundSemantic_SoundSpot);
 			m_pSound = m_pSoundProxy->GetSound(id);
+			if (m_pSound)
+				m_pSound->SetPaused(false);
 			m_bHasBeenPlayed = true;
 
 			if (!x_bSpawnOnce)
@@ -147,8 +149,13 @@ void SSituationSound::Reset()
 
 	m_bFadeOut = false;
 	m_fFadeOutTime = 0.f;
-
-	m_pSound->Stop();
+	m_fFadeProgression = 0.f;
+	
+	if (!gEnv->IsEditing() && m_pSound)
+	{
+		m_pSound->SetPaused(true);
+		m_pSound->Stop();
+	}
 
 	if (gEnv->IsEditor())
 	{
@@ -162,7 +169,7 @@ void SSituationSound::SpawnSound()
 {
 	int &soundFlags = m_nSoundFlags;
 
-	soundFlags |= FLAG_SOUND_3D;
+	soundFlags |= FLAG_SOUND_3D | FLAG_SOUND_START_PAUSED;
 
 	if (x_bLoop)
 	{
@@ -215,6 +222,7 @@ void SSituationSound::SpawnSound()
 	{
 		m_pSoundProxy = (IEntitySoundProxy *)m_pEntity->CreateProxy(EEntityProxy::ENTITY_PROXY_SOUND);
 	}
+
 
 }
 

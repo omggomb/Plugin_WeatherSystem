@@ -18,6 +18,7 @@ struct SSituationSimpleCloud
 		x_fDistanceToPlayer(100.f),
 		x_fScaleFactor(1.f),
 		x_fHeight(100.f),
+		x_fFadeInTime(1.f),
 		x_sCloudFile("Libs/Clouds/Default.xml"),
 		x_sMaterialFile("materials/clouds/baseclouds"),
 /** Private */
@@ -74,6 +75,8 @@ struct SSituationSimpleCloud
 	float x_fScaleFactor;
 	/** Height at which cloud is spawned */
 	float x_fHeight;
+	/** Time until cloud material reaches target opacity */ 
+	float x_fFadeInTime;
 	/** Path to the cloud xml file  */
 	XmlString x_sCloudFile;
 	/** Path to the material file  */
@@ -96,6 +99,8 @@ private:
 	float m_fTimeRemaining;
 	/** How many clouds have to be removed every quater of m_fTimeRemaining */
 	int m_nCloudsToRemovePerQuater;
+	/** Set when entity is first created */ 
+	float m_fTargetOpacity;
 
 	/** Entity interfaces to the spawned clouds */
 	std::vector<IEntity *> m_simpleCloudEntities;

@@ -1,0 +1,22 @@
+<ParticleLibrary Name="Weather" SandboxVersion="3.4.5.6666" ParticleVersion="22">
+ <Particles Name="Lightning.LightningBolt1">
+  <Params Count="1" EmitterLifeTime="1" PulsePeriod="7.6" ParticleLifeTime="0.2,0.4" EmitAngle=",1" BlendType="Additive" Texture="textures/lightning/lightning1.dds" Alpha=",,,(,1;0.02,0.067;0.04,0.84;0.075,0.98;0.1,0.23;0.12,0.73;0.15,0.954;0.175,0.02;0.18,0.98;0.22,0.25;0.26,0.73;0.3,0.23;0.37,0.5;0.396,0.183;0.463,0.454,4;0.52,0.52,32;0.617,0.73;0.7,0.183;0.804,0.23;1)" DiffuseLighting="0" EmissiveLighting="1" NotAffectedByFog="true" Size="0.1" RandomAngles=",10" Thickness="0.999" VisibleIndoors="If_False"/>
+ </Particles>
+ <Particles Name="snow.heavy_snow_sheets">
+  <Params Continuous="true" Count="1000" ParticleLifeTime="5" RandomOffset="48,48,48" OffsetRoundness="1" EmitAngle="180,1" Texture="textures/sprites/snow_tiled1.tif" TextureTiling="2,2,,4" Alpha=",0.574,,(0.64,1;1)" DiffuseBacklighting="0.2" ReceiveShadows="false" Size="0.1,0.851,,(;0.27,1)" Stretch="0.01,0.604" Speed="2,1" AirResistance="0.33,1" GravityScale="0.455,0.861" Turbulence3DSpeed="0.88" BindEmitterToCamera="true" SpaceLoop="true" RandomAngles=",180" RandomRotationRate=",444" CameraMinDistance="8" VisibleIndoors="If_False" VisibleUnderwater="If_False" FillRateCost="2.46"/>
+  <Childs>
+   <Particles Name="light_sheet">
+    <Params Continuous="true" Count="20" ParticleLifeTime="5" RandomOffset="87,87,87" OffsetRoundness="1" EmitAngle=",1" Texture="textures/sprites/smoke_white_tiled2.tif" TextureTiling="2,2,,4" Alpha="0.2,0.228,,(;0.504,1;1)" SoftParticle="true" DiffuseBacklighting="0.2" EmissiveLighting="0.2" ReceiveShadows="false" Size="50,0.473,,(,0.27;1,1)" Stretch="0.04,0.604" Speed=",1" AirResistance="200,1" GravityScale=",0.861" BindEmitterToCamera="true" SpaceLoop="true" RandomAngles=",90" RandomRotationRate=",22" CameraMinDistance="12" VisibleIndoors="If_False" VisibleUnderwater="If_False" FillRateCost="4" ConfigMin="Medium"/>
+   </Particles>
+   <Particles Name="close_blur">
+    <Params Continuous="true" Count="500" ParticleLifeTime="5" RandomOffset="24,24,24" OffsetRoundness="1" EmitAngle="180,1" OrientToVelocity="true" Texture="textures/sprites/snow_tiled1_motion.tif" TextureTiling="2,2,,4" Alpha="0.663,0.574,,(0.64,1;1)" DiffuseBacklighting="0.2" ReceiveShadows="false" Size="0.08,0.851,,(;0.27,1)" Stretch="0.01,0.604" Speed="2,1" AirResistance="2.4,1" GravityScale="0.317,0.861" Turbulence3DSpeed="1.93" BindEmitterToCamera="true" SpaceLoop="true" RandomAngles=",180" RandomRotationRate=",444" CameraMinDistance="1" VisibleIndoors="If_False" VisibleUnderwater="If_False" FillRateCost="2.46" ConfigMin="Medium"/>
+   </Particles>
+  </Childs>
+ </Particles>
+ <Particles Name="Rain.space_loop">
+  <Params Continuous="true" Count="600,0.25" ParticleLifeTime="1.5" PositionOffset=",8,4" RandomOffset="12,8,6" FocusGravityDir="true" EmitAngle=",1" OrientToVelocity="true" BlendType="Additive" Texture="textures/sprites/rain_drop_a.dds" Alpha=",,,(;0.14,1)" DiffuseLighting="0" EmissiveLighting="1" Size="0.5,0.5" Stretch="0.01" Speed="-75,0.25" AirResistance="2.1982" GravityScale="1" BindEmitterToCamera="true" SpaceLoop="true" PhysicsType="SimpleCollision" CollideStaticObjects="true" Bounciness="-1" CameraMaxDistance="20" VisibleIndoors="If_False" VisibleUnderwater="If_False"/>
+ </Particles>
+ <Particles Name="Lightning.MyLightning">
+  <Params Count="1" EmitterLifeTime="1" ParticleLifeTime="0.2,0.4" EmitAngle=",1" BlendType="Additive" Texture="textures/lightning/lightning1.dds" Alpha=",,,(,1;0.02,0.067;0.04,0.84;0.075,0.98;0.1,0.23;0.12,0.73;0.15,0.954;0.175,0.02;0.18,0.98;0.22,0.25;0.26,0.73;0.3,0.23;0.37,0.5;0.396,0.183;0.463,0.454,4;0.52,0.52,32;0.617,0.73;0.7,0.183;0.804,0.23;1)" DiffuseLighting="0" EmissiveLighting="1" NotAffectedByFog="true" RandomAngles=",10" Thickness="0.999" VisibleIndoors="If_False"/>
+ </Particles>
+</ParticleLibrary>
